@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+main {
+    flex: 1;
+    background-color: darkgray;
+}
+footer {
+    background-color: #f8f9fa;
+}
+.nav-link i {
+    font-size: 1.75em;
+    margin-right: .25em;
+}
