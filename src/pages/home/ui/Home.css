@@ -1,0 +1,9 @@
+.content-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.content-container .section-card {
+    width: 15.5%;
+}
