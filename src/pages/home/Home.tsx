@@ -129,37 +129,5 @@ const homePageJson: HomePageContent = {
             "title": "Мониторы",
             "slug": ""
         },
-        {
-            "imageUrl": "/img/wide-garminfull.png.webp",
-            "title": "garminfull",
-            "slug": ""
-        },
-        {
-            "imageUrl": "/img/big-kitchenfull.png.webp",
-            "title": "kitchenfull",
-            "slug": ""
-        },
-        {
-            "imageUrl": "/img/home-carefull.png.webp",
-            "title": "home-carefull",
-            "slug": ""
-        },
-
-        {
-            "imageUrl": "/img/gaming-micefull.png.webp",
-            "title": "micefull",
-            "slug": "micefull"
-        },
-        {
-            "imageUrl": "/img/gaming-acsfull.png.webp",
-            "title": "acsfull",
-            "slug": "acsfull"
-        },
-
-        {
-            "imageUrl": "/img/headphonesfull.png.webp",
-            "title": "headphonesfull",
-            "slug": "headphonesfull"
-        },
     ]
 }
