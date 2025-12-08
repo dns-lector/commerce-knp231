@@ -2,8 +2,13 @@ import { Link, Outlet } from "react-router-dom";
 import './ui/Layout.css';
 import Label from "../label/Label";
 import LabelTypes from "../label/types/LabelTypes";
+import { useContext } from "react";
+import { AppContext } from "../app_context/AppContext";
 
 export default function Layout() {
+    const {user} = useContext(AppContext);
+    const profileTitle = user == null ? "Вхід" : "Кабінет";
+
     return <>
     <header>
         <nav className="navbar navbar-expand-lg border-bottom">
@@ -37,8 +42,8 @@ export default function Layout() {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/privacy" className="nav-link" title="Кабінет" aria-label="Кабінет">
-                            <Label title="Кабінет" type={LabelTypes.Blue  } />
+                        <Link to="/auth" className="nav-link" title={profileTitle} aria-label={profileTitle}>
+                            <Label title={profileTitle} type={LabelTypes.Blue  } />
                         </Link>
                     </li>
                 </ul>
