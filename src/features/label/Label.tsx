@@ -7,6 +7,7 @@ export default function Label({title, type, borderWidth}:
     const fillColor = type == LabelTypes.Violet ? "#8985C5"
                     : type == LabelTypes.Blue ? "#2681CE"
                     : type == LabelTypes.Black ? "#1d1d1d"
+                    : type == LabelTypes.White ? "#fefefe"
                     : "#00A397";
     
     return <div className="site-label">

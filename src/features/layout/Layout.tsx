@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { AppContext } from "../app_context/AppContext";
 
 export default function Layout() {
-    const {user} = useContext(AppContext);
+    const {user, cart} = useContext(AppContext);
     const profileTitle = user == null ? "Вхід" : "Кабінет";
 
     return <>
@@ -44,6 +44,11 @@ export default function Layout() {
                     <li className="nav-item">
                         <Link to="/auth" className="nav-link" title={profileTitle} aria-label={profileTitle}>
                             <Label title={profileTitle} type={LabelTypes.Blue  } />
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/cart" className="nav-link" title={["Кошик", ...cart.items.map(item => item.product.name + ": " + item.cnt) ].join('\n')} aria-label="Кошик">
+                            <Label title={"Кошик " + cart.items.reduce((n, item) => n + item.cnt, 0)} type={LabelTypes.White} />
                         </Link>
                     </li>
                 </ul>

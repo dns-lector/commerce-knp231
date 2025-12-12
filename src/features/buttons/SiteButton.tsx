@@ -11,7 +11,7 @@ export default function SiteButton({buttonType, text, action} : {
     : buttonType == ButtonTypes.White ? 'button-white'
     : "";
 
-    return <div className={"site-button " + extraClass} onClick={action}>
+    return <div role="button" className={"site-button " + extraClass} onClick={action}>
         {text}
     </div>;
 }
