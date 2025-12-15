@@ -124,7 +124,14 @@ export default class SectionDao {
                             { id: "2", name: "Навушники Apple AirPods Pro 3 (MFHP4) (2025)", 
                                 slug: "navushnyky-apple-airpods-pro-3",
                                 price: 11899, discount: 2200, rating: 5, 
-                                imageUrl: "/img/vbfbg-1397x1397.png.webp"}
+                                imageUrl: "/img/vbfbg-1397x1397.png.webp"},
+                            { 
+                                id: "814897", name: "Apple iPhone 15 256GB (Pink)", 
+                                slug: "apple-iphone-15-256gb--pink-",
+                                price: 37999, discount: 2800, rating: 5, 
+                                imageUrl: "/img/pink (1)-1397x1397.jpeg.webp",
+                                stock: 0
+                            }
                         ]
                     }); break;
                     default: reject('"Slug not found"');

@@ -6,6 +6,7 @@ type ProductType = {
     imageUrl: string,
     rating:   number|null,
     slug:     string|undefined,
+    stock?:   number,  // наявність (у шт)
 }
 
 export type { ProductType };
