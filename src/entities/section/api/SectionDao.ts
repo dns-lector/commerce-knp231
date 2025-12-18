@@ -131,7 +131,25 @@ export default class SectionDao {
                                 price: 37999, discount: 2800, rating: 5, 
                                 imageUrl: "/img/pink (1)-1397x1397.jpeg.webp",
                                 stock: 0
-                            }
+                            },
+                            { id: "842447", name: "MacBook Air 13 Retina, Midnight, 256GB, 10 CPU / 8 GPU, 16GB RAM with Apple M4 (2025) (MW123)", 
+                                slug: "macbook-air-13-retina-midnight-256gb-8-cpu--10-gpu-16gb-ram-with-apple-m4-2025-mw123",
+                                price: 41999, discount: 8000, rating: 5, 
+                                imageUrl: "/img/midnight-1-1397x1397.png.webp",
+                                stock: 10
+                            },
+                            { id: "855417", name: "Apple iPhone 17 Pro Max 512GB (Deep Blue)", 
+                                slug: "apple-iphone-17-pro-max-512gb-dark-blue",
+                                price: 83699, discount: 13050, rating: 5, 
+                                imageUrl: "/img/deepBlue-(4)-1397x1397.png.webp",
+                                stock: 3
+                            },
+                            { id: "842247", name: "Apple iPad 11 128GB, Wi-Fi (Silver) (2025) (MD3Y4)", 
+                                slug: "apple-ipad-11-128gb-wi-fi-silver-2025-md3y4",
+                                price: 17199, discount: 1300, rating: 4, 
+                                imageUrl: "/img/ipad-2022-hero-silver-wifi-selec-1397x1397.jpg.webp",
+                                stock: 10
+                            },
                         ]
                     }); break;
                     default: reject('"Slug not found"');

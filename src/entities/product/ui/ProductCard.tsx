@@ -42,7 +42,7 @@ export default function ProductCard({product}:{product: ProductType}) {
 
             <div className='product-card-rating'>{product.rating}</div>
             
-            <p>{product.name}</p>
+            <p className='two-line-ellipsis'>{product.name}</p>
         </Link>
         <div className='product-card-footer'>
             {cart.items.find(ci => ci.product.id == product.id)
