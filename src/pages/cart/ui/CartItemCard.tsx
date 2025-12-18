@@ -2,7 +2,7 @@ import type CartItem from "../../../entities/cart/model/CartItem";
 import './CartItemCard.css';
 
 function toMoney(sum:number):string {
-    return sum.toString().match(/.{1,3}/g)?.join(' ') ?? "";
+    return sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
 export default function CartItemCard({cartItem}:{cartItem:CartItem}) {
