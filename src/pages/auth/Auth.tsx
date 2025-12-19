@@ -16,6 +16,7 @@ function AuthForm() {
     const [password, setPassword] = useState<string>("");
     const [isFormValid, setFormValid] = useState<boolean>(false);
     const [isLoading, setLoading] = useState<boolean>(false);
+    const [remember, setRemember] = useState(true);
 
     useEffect(() => {
         setFormValid(login.length > 2 && password.length > 2);
@@ -30,6 +31,11 @@ function AuthForm() {
                     alert("У вході відмовлено");
                 }
                 else {
+                    // зберігаємо одержану інформацію у постійному сховищі
+                    if(remember) {
+                        window.localStorage.setItem("user-231", JSON.stringify(res));
+                    }
+                    // змінюємо стан застосунку
                     setUser(res);
                 }
             })
@@ -56,6 +62,13 @@ function AuthForm() {
                     value={password} onChange={e => setPassword(e.target.value)}
                     aria-label="Пароль" aria-describedby="password-addon"/>
             </div>
+            <div>
+                <label>
+                    <input type="checkbox" checked={remember} className=" mb-3"
+                        onChange={e => setRemember(e.target.checked)}/>&thinsp;
+                    Запам'ятати
+                </label>
+            </div>
             {isLoading
             ? <img src="/img/loader.gif" />
             : <SiteButton 
@@ -70,6 +83,11 @@ function AuthForm() {
 
 function Profile() {
     const {user, setUser} = useContext(AppContext);
+
+    const exitAuth = () => {
+        window.localStorage.removeItem("user-231");
+        setUser(null);
+    };
 
     return <>
     <h1 className="display-4 text-center">Кабінет користувача</h1>
@@ -103,7 +121,7 @@ function Profile() {
                         <SiteButton 
                             text="Вихід" 
                             buttonType={ButtonTypes.Red} 
-                            action={() => setUser(null)} /> 
+                            action={exitAuth} /> 
                     </div>                    
                 </div>                    
             </div>
