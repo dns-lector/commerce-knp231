@@ -3,9 +3,10 @@ import type CartItem from "../../../entities/cart/model/CartItem";
 import './CartItemCard.css';
 import { AppContext } from "../../../features/app_context/AppContext";
 import CartDao from "../../../entities/cart/api/CartDao";
+import ButtonTypes from "../../../features/buttons/types/ButtonTypes";
 
 export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
-    const { cart, setCart } = useContext(AppContext);
+    const { cart, setCart, showModal } = useContext(AppContext);
 
     const incClick = () => {
         // задача: змінити кількість замовлення у {cartItem} та внести зміни
@@ -38,12 +39,19 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
         }
     };
     const removeClick = () => {
-        if(confirm("Видалити позицію?")) {
-            setCart({ ...cart,
-                items: cart.items.filter(ci => ci.product.id !== cartItem.product.id),
-                price: cart.price - cartItem.price
-            });
-        }
+        showModal({
+            title: "Незворотня дія",
+            message: "Після видалення відновити позицію можна лише з прайсу. Підтверджуєте видалення?",
+            buttons: [
+                {title: "Так", callback: () => {
+                    setCart({ ...cart,
+                        items: cart.items.filter(ci => ci.product.id !== cartItem.product.id),
+                        price: cart.price - cartItem.price
+                    });
+                }},
+                {title: "Ні", type: ButtonTypes.White},
+            ]
+        });
     };
 
     return <div className="row m-3 p-2 cart-item-card">
