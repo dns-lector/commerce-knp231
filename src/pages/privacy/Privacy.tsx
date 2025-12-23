@@ -11,12 +11,11 @@ export default function Privacy() {
     let task:number|null;
 
     useEffect(() => {
-
-        return () => {   // Finalizer
-            console.log(`clear task: ${task}`);
-            if(task) {
-                clearTimeout(task);
-            }
+        return () => {   // Finalizer                // self.task = task
+            console.log(`clear task: ${task}`);      //  ...${task}.. -> ${self.task}
+            if(task) {                               //     
+                clearTimeout(task);                                   
+            }                                   
         };
     }, []);
 
@@ -85,6 +84,6 @@ export default function Privacy() {
 }
 /*
 Д.З. Впровадити у власний курсовий проєкт 
-систему модальних повідомлень, передбачити їх налаштування
+систему прелоадера
 Прикладати скріншоти проєкту
 */

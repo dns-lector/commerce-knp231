@@ -91,7 +91,7 @@ export default function App() {
   }
   const [isBusy, setBusy] = useState<boolean>(false);
 
-  return <AppContext.Provider value={{setBusy, showModal, user, setUser, showToast, cart, setCart}}>
+  return <AppContext.Provider value={{isBusy, setBusy, showModal, user, setUser, showToast, cart, setCart}}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
