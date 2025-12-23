@@ -115,5 +115,12 @@ export default function App() {
 
     <Modal modalData={modalData} setModalData={setModalData} />
 
+    <div className='preloader'>
+      <div className='preloader-content'>
+        
+      </div>
+    </div>
+
   </AppContext.Provider>;
 }
+

@@ -1,4 +1,4 @@
 import { createRoot } from 'react-dom/client'
-import App from './app/ui/App.tsx'
+import App from './ui/App.tsx'
 
 createRoot(document.getElementById('root')!).render( <App /> )
