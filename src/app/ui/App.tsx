@@ -89,8 +89,9 @@ export default function App() {
   const showModal = (data:ModalData) => {
     setModalData(data);
   }
+  const [isBusy, setBusy] = useState<boolean>(false);
 
-  return <AppContext.Provider value={{showModal, user, setUser, showToast, cart, setCart}}>
+  return <AppContext.Provider value={{setBusy, showModal, user, setUser, showToast, cart, setCart}}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -114,12 +115,12 @@ export default function App() {
     </div>
 
     <Modal modalData={modalData} setModalData={setModalData} />
-
+    {isBusy && 
     <div className='preloader'>
       <div className='preloader-content'>
         
       </div>
-    </div>
+    </div>}
 
   </AppContext.Provider>;
 }

@@ -141,7 +141,7 @@ export default class SectionDao {
                             { id: "855417", name: "Apple iPhone 17 Pro Max 512GB (Deep Blue)", 
                                 slug: "apple-iphone-17-pro-max-512gb-dark-blue",
                                 price: 83699, discount: 13050, rating: 3, 
-                                imageUrl: "/img/deepBlue-(4)-1397x1397.png.webp",
+                                imageUrl: "/img/deepBlue-(4)-1397x1397.png.webp1",
                                 stock: 3
                             },
                             { id: "842247", name: "Apple iPad 11 128GB, Wi-Fi (Silver) (2025) (MD3Y4)", 

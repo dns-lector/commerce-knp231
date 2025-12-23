@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import SiteButton from "../../features/buttons/SiteButton";
 import ButtonTypes from "../../features/buttons/types/ButtonTypes";
 import './ui/Privacy.css';
@@ -7,10 +7,31 @@ import { ModalIcon } from "../../features/modal/ModalIcon";
 
 
 export default function Privacy() {
-    const {showToast, showModal} = useContext(AppContext);
+    const {showToast, showModal, setBusy} = useContext(AppContext);
+    let task:number|null;
+
+    useEffect(() => {
+
+        return () => {   // Finalizer
+            console.log(`clear task: ${task}`);
+            if(task) {
+                clearTimeout(task);
+            }
+        };
+    }, []);
 
     return <>
     <h1 className="display-4"><i className="bi bi-shield-check"></i> Політика конфіденційності</h1>
+    <SiteButton 
+        buttonType={ButtonTypes.Red} 
+        text="Loading..."
+        action={() => {
+            setBusy(true);
+            task = setTimeout(() => setBusy(false), 4000);
+            console.log(`set task: ${task}`);
+        }} />
+    <br/>
+    <br/>
     <SiteButton 
         buttonType={ButtonTypes.Red} 
         text="Toast"

@@ -9,6 +9,7 @@ interface  AppContextType {
     setUser: (input: UserType|null) => void,
     showToast: (data:ToastData) => void,
     showModal: (data:ModalData) => void,
+    setBusy: (isBusy:boolean) => void,
     cart: CartType,
     setCart: (input: CartType) => void,
 }
@@ -27,6 +28,9 @@ const init:AppContextType = {
     cart: {items:[], price: 0},
     setCart: (_) => {
         throw "Not Implemented 'setCart'";
+    },
+    setBusy: (_) => {
+        throw "Not Implemented 'setBusy'";
     },
     
 

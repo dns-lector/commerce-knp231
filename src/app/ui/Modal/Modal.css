@@ -8,6 +8,7 @@
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 2;
 }
 .app-modal-dlg {
     background-color: #1d1d1d;

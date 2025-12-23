@@ -10,12 +10,11 @@ export default function Auth() {
 }
 
 function AuthForm() {
-    const {setUser} = useContext(AppContext);
+    const {setUser, setBusy} = useContext(AppContext);
 
     const [login, setLogin] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isFormValid, setFormValid] = useState<boolean>(false);
-    const [isLoading, setLoading] = useState<boolean>(false);
     const [remember, setRemember] = useState(true);
 
     useEffect(() => {
@@ -23,7 +22,7 @@ function AuthForm() {
     }, [login, password]);
 
     const onAuthClick = () => {
-        setLoading(true);
+        setBusy(true);
         UserDao
             .authenticate(login, password)
             .then(res => {
@@ -40,7 +39,7 @@ function AuthForm() {
                 }
             })
             .finally(() => {
-                setLoading(false);
+                setBusy(false);
             });
     };
 
@@ -69,13 +68,12 @@ function AuthForm() {
                     Запам'ятати
                 </label>
             </div>
-            {isLoading
-            ? <img src="/img/loader.gif" />
-            : <SiteButton 
+            
+            <SiteButton 
                 text="Вхід"
                 action={onAuthClick}
                 buttonType={isFormValid ? ButtonTypes.Red : ButtonTypes.White}
-                />}
+                />
         </div>
     </div>
     </>;
