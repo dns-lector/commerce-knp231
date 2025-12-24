@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import SiteButton from "../../features/buttons/SiteButton";
 import ButtonTypes from "../../features/buttons/types/ButtonTypes";
 import './ui/Privacy.css';
@@ -8,13 +8,14 @@ import { ModalIcon } from "../../features/modal/ModalIcon";
 
 export default function Privacy() {
     const {showToast, showModal, setBusy} = useContext(AppContext);
-    let task:number|null;
+    const taskRef = useRef(0);
 
     useEffect(() => {
         return () => {   // Finalizer                // self.task = task
-            console.log(`clear task: ${task}`);      //  ...${task}.. -> ${self.task}
-            if(task) {                               //     
-                clearTimeout(task);                                   
+            console.log(`clear task: ${taskRef.current}`);      //  ...${task}.. -> ${self.task}
+            if(taskRef.current) {                               //     
+                clearTimeout(taskRef.current);
+                setBusy(false);                         
             }                                   
         };
     }, []);
@@ -26,8 +27,8 @@ export default function Privacy() {
         text="Loading..."
         action={() => {
             setBusy(true);
-            task = setTimeout(() => setBusy(false), 4000);
-            console.log(`set task: ${task}`);
+            taskRef.current = setTimeout(() => {setBusy(false); console.log("Task finished")}, 4000);
+            console.log(`set task: ${taskRef.current}`);
         }} />
     <br/>
     <br/>
