@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import "./ui/Product.css";
-import { useContext, useEffect, useState } from "react";
-import type { ProductType } from "../../entities/product/model/ProductType";
+import { useContext, useEffect, useState, useRef, type MouseEventHandler } from "react";
 import ProductDao from "../../entities/product/api/ProductDao";
 import { AppContext } from "../../features/app_context/AppContext";
 import type ProductPageType from "../../entities/product/model/ProductPageType";
@@ -54,9 +53,42 @@ export default function Product() {
         </div>    
     </div>   
     <br/>
-    <div className="products-container">
-        {pageData?.recommended.map(product => <ProductCard product={product} key={product.id} />)}
-    </div>            
-
+    <Recommended pageData={pageData} />
     </>;
+}
+
+function Recommended({pageData}:{pageData:ProductPageType}) {
+    const scrollRightRef = useRef<HTMLDivElement>(null);
+
+    const scrollRightClick: MouseEventHandler<HTMLDivElement> = (e) => {
+        e.preventDefault();
+        scrollRightRef.current?.scrollBy({
+            left: 150,
+            behavior: "smooth",
+          });
+    };
+    const scrollLeftClick: MouseEventHandler<HTMLDivElement> = (e) => {
+        e.preventDefault();
+        scrollRightRef.current?.scrollBy({
+            left: -150,
+            behavior: "smooth",
+          });
+    };
+
+    return <div className="recommended-box">
+
+        <div className="recommended-container" ref={scrollRightRef}>
+            <div className="recommended-row">
+                {pageData?.recommended.map(product => <ProductCard product={product} key={product.id} />)}
+            </div>
+        </div>
+
+        <div className="scroll-left" role="button" onClick={scrollLeftClick}>
+            &lt;
+        </div>
+        <div className="scroll-right" role="button" onClick={scrollRightClick}>
+            &gt;
+        </div>
+    </div>
+     ;
 }

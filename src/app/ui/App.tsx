@@ -1,20 +1,13 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Layout from '../../features/layout/Layout';
-import Home from '../../pages/home/Home';
-import Privacy from '../../pages/privacy/Privacy';
-import Section from '../../pages/section/Section';
-import Product from '../../pages/product/Product';
-import Auth from '../../pages/auth/Auth';
 import { AppContext } from '../../features/app_context/AppContext';
 import type { UserType } from '../../entities/user/model/UserType';
 import type ToastData from '../../features/app_context/ToastData';
 import type CartType from '../../entities/cart/model/CartType';
-import Cart from '../../pages/cart/Cart';
 import CartDao from '../../entities/cart/api/CartDao';
 import './App.css';
 import type ModalData from '../../features/modal/ModalData';
 import Modal from './Modal/Modal';
+import AppRouter from '../router/AppRouter';
 
 declare global {
   interface Number {
@@ -92,18 +85,7 @@ export default function App() {
   const [isBusy, setBusy] = useState<boolean>(false);
 
   return <AppContext.Provider value={{isBusy, setBusy, showModal, user, setUser, showToast, cart, setCart}}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path='auth' element={<Auth />} />
-          <Route path='cart' element={<Cart />} />
-          <Route path='privacy' element={<Privacy />} />
-          <Route path='product/:slug' element={<Product />} />
-          <Route path='section/:slug' element={<Section />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AppRouter />
 
     <div className="toaster">
         {/* <div className="toast-text" style={{display: toastData ? "block" : "none"}}>
