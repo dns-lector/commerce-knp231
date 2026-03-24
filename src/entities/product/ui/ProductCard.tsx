@@ -27,7 +27,7 @@ export default function ProductCard({product}:{product: ProductType}) {
             });
         }
         setCart(newCart);
-        showToast({message: "Додано до кошику " + product.name});
+        showToast({message: "Додано до кошику " + product.title});
     };
 
     
@@ -40,7 +40,7 @@ export default function ProductCard({product}:{product: ProductType}) {
                 </div>}
 
             <div className='product-card-imgs'>
-                <img src={product.imageUrl} alt={product.name} />
+                <img src={product.imageUrl} alt={product.title} />
             </div>
 
             <div className='product-card-rating' title={`Середня оцінка: ${product.rating}`}>
@@ -50,7 +50,7 @@ export default function ProductCard({product}:{product: ProductType}) {
                     (_,i) => <span key={Math.round(product.rating ?? 1) + i}>☆</span>)}
             </div>
             
-            <p className='two-line-ellipsis'>{product.name}</p>
+            <p className='two-line-ellipsis'>{product.title}</p>
         </Link>
         <div className='product-card-footer'>
             {cart.items.find(ci => ci.product.id == product.id)

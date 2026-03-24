@@ -35,10 +35,10 @@ export default function Product() {
 
     <div className="row">
         <div className="col col-5">
-            <img className="w-100" src={pageData?.product.imageUrl} alt={pageData?.product.name} />
+            <img className="w-100" src={pageData?.product.imageUrl} alt={pageData?.product.title} />
         </div>    
         <div className="col col-7 product-info">
-            <h1>{pageData?.product.name}</h1>
+            <h1>{pageData?.product.title}</h1>
             <div>
                 <div className='product-rating'>★★★★★ ({pageData.product.rating})</div>
                 {pageData.product.stock === 0
