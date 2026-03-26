@@ -87,6 +87,17 @@ function Profile() {
         setUser(null);
     };
 
+    const testAuth = () => {
+        // console.log(user!.token);
+        fetch("https://localhost:7015/User/TestAuth", {
+            headers: {
+                'Authorization': 'Bearer ' + user!.token
+            }
+        })
+        .then(r => r.json())
+        .then(console.log);
+    };
+
     return <>
     <h1 className="display-4 text-center">Кабінет користувача</h1>
     <div className="row">
@@ -121,6 +132,15 @@ function Profile() {
                             buttonType={ButtonTypes.Red} 
                             action={exitAuth} /> 
                     </div>                    
+                </div>          
+
+                <div className="col col-4 ">
+                    <div className="row">
+                        <SiteButton 
+                            text="Тест" 
+                            buttonType={ButtonTypes.White} 
+                            action={testAuth} /> 
+                    </div> 
                 </div>                    
             </div>
                    
