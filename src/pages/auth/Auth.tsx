@@ -89,7 +89,7 @@ function Profile() {
 
     const testAuth = () => {
         // console.log(user!.token);
-        fetch("https://localhost:7015/User/TestAuth", {
+        fetch("https://localhost:7015/api/product/123", {
             headers: {
                 'Authorization': 'Bearer ' + user!.token 
             }
