@@ -1,3 +1,4 @@
+import BaseDao from "../../config/BaseDao";
 import type ProductPageType from "../model/ProductPageType";
 const p1 = { 
     id: "1", 
@@ -46,7 +47,7 @@ const p6 = {
 export default class ProductDao {
     static getProduct(slugOrId:string): Promise<ProductPageType> {
         return new Promise((resolve, reject) => {
-            fetch("https://localhost:7015/api/product/" + slugOrId)
+            BaseDao.request("api://product/" + slugOrId)
             .then(r => r.json())
             .then(j => {
                 if(j.meta.dataType == 'object') {

@@ -85,32 +85,7 @@ export default function App() {
   }
   const [isBusy, setBusy] = useState<boolean>(false);
 
-  const request = (url: string, init?: RequestInit) => {
-    return new Promise<Response>((resolve, reject) => {
-      // реалізуємо свій формат api://... який буде адресуватись до бекенду
-      if(url.startsWith("api://")) {
-        url = url.replace("api://", Config.backendUrl + "/api/");
-        // перевіряємо стан авторизації та додаємо до запиту токен, якщо 
-        // він не встановлений ззовні
-        if(user) {
-          if(!init) {
-            init = {};
-          }
-          if(!init.headers) {
-            init.headers = {};
-          }
-          const headers = new Headers(init.headers);
-          if(!headers.has('authorization')) {
-            headers.append('authorization', 'Bearer ' + user.token);
-            init.headers = headers;
-          }
-        }
-      }
-      fetch(url, init).then(resolve).catch(reject);
-    });
-  };
-
-  return <AppContext.Provider value={{request, isBusy, setBusy, showModal, user, setUser, showToast, cart, setCart}}>
+  return <AppContext.Provider value={{ isBusy, setBusy, showModal, user, setUser, showToast, cart, setCart}}>
     <AppRouter />
 
     <div className="toaster">

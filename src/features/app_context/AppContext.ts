@@ -13,7 +13,6 @@ interface  AppContextType {
     isBusy:boolean,
     cart: CartType,
     setCart: (input: CartType) => void,
-    request: (url: string, init?: RequestInit) => Promise<Response>,
 }
 
 const init:AppContextType = {
@@ -35,9 +34,6 @@ const init:AppContextType = {
     setBusy: (_) => {
         throw "Not Implemented 'setBusy'";
     },
-    request: (_,__) => {
-        throw "Not Implemented 'request'";
-    }, 
 
 }
 
