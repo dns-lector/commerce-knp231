@@ -8,7 +8,6 @@ import './App.css';
 import type ModalData from '../../features/modal/ModalData';
 import Modal from './Modal/Modal';
 import AppRouter from '../router/AppRouter';
-import Config from '../../entities/config/Config';
 
 declare global {
   interface Number {
