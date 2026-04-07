@@ -1,14 +1,16 @@
+import GlobalState from "../../features/global_state/GlobalState";
 import Config from "./Config";
 
 export default class BaseDao {
-    static request = (url: string, init?: RequestInit, token?:string) => {
+    static request = (url: string, init?: RequestInit) => {
         return new Promise<Response>((resolve, reject) => {
           // реалізуємо свій формат api://... який буде адресуватись до бекенду
           if(url.startsWith("api://")) {
             url = url.replace("api://", Config.backendUrl + "/api/");
+            // console.log("BaseDao: GlobalState.token = ", GlobalState.token)
             // перевіряємо стан авторизації та додаємо до запиту токен, якщо 
             // він не встановлений ззовні
-            if(token) {
+            if(GlobalState.token) {
               if(!init) {
                 init = {};
               }
@@ -17,7 +19,7 @@ export default class BaseDao {
               }
               const headers = new Headers(init.headers);
               if(!headers.has('authorization')) {
-                headers.append('authorization', 'Bearer ' + token);
+                headers.append('authorization', 'Bearer ' + GlobalState.token);
                 init.headers = headers;
               }
             }

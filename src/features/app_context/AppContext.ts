@@ -27,7 +27,7 @@ const init:AppContextType = {
     showModal: (_) => {
         throw "Not Implemented 'showModal'";
     },
-    cart: {items:[], price: 0},
+    cart: {cartItems:[], price: 0},
     setCart: (_) => {
         throw "Not Implemented 'setCart'";
     },

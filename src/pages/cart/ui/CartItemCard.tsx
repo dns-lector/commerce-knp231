@@ -11,13 +11,13 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
     const incClick = () => {
         // задача: змінити кількість замовлення у {cartItem} та внести зміни
         // до загального кошику через виклик {setCart}
-        if(cartItem.product.stock && cartItem.product.stock <= cartItem.cnt) {
+        if(cartItem.product.stock && cartItem.product.stock <= cartItem.quantity) {
             return;
         }
         let newCart = { ...cart };
-        let item = newCart.items.find(ci => ci.product.id == cartItem.product.id);
+        let item = newCart.cartItems.find(ci => ci.product.id == cartItem.product.id);
         if (item) {       
-            item.cnt += 1;
+            item.quantity += 1;
             CartDao.calcPrices(newCart);
             // item.price = item.product.price * item.cnt;
             // newCart.price = newCart.items.reduce((s,ci) => s + ci.price, 0.0);
@@ -27,13 +27,13 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
     const decClick = () => {
         // задача: реалізувати обмеження: кількість не можна зменшити до 0, а також
         // збільшити понад {stock} якщо його зазначено
-        if(cartItem.cnt <= 1) {
+        if(cartItem.quantity <= 1) {
             return;
         }
         let newCart = { ...cart };
-        let item = newCart.items.find(ci => ci.product.id == cartItem.product.id);
+        let item = newCart.cartItems.find(ci => ci.product.id == cartItem.product.id);
         if (item) { 
-            item.cnt -= 1;
+            item.quantity -= 1;
             CartDao.calcPrices(newCart);
             setCart(newCart);
         }
@@ -45,7 +45,7 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
             buttons: [
                 {title: "Так", callback: () => {
                     setCart({ ...cart,
-                        items: cart.items.filter(ci => ci.product.id !== cartItem.product.id),
+                        cartItems: cart.cartItems.filter(ci => ci.product.id !== cartItem.product.id),
                         price: cart.price - cartItem.price
                     });
                 }},
@@ -62,7 +62,7 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
                 className="w-100" />
             <div className="text-center">
                 <button className="btn btn-outline-secondary me-2" onClick={decClick}>-</button>
-                {cartItem.cnt}
+                {cartItem.quantity}
                 <button className="btn btn-outline-secondary ms-2" onClick={incClick}>+</button>
             </div>
         </div>
@@ -75,7 +75,7 @@ export default function CartItemCard({ cartItem }: { cartItem: CartItem }) {
             <h4>{cartItem.price.toMoney()} грн</h4>
             {cartItem.product.discount &&
                 <div className="text-decoration-line-through">
-                    {(cartItem.price + (cartItem.product.discount ?? 0) * cartItem.cnt).toMoney()} грн
+                    {(cartItem.price + (cartItem.product.discount ?? 0) * cartItem.quantity).toMoney()} грн
                 </div>
             }
         </div>

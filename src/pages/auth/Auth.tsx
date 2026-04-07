@@ -3,6 +3,8 @@ import SiteButton from "../../features/buttons/SiteButton";
 import ButtonTypes from "../../features/buttons/types/ButtonTypes";
 import UserDao from "../../entities/user/api/UserDao";
 import { AppContext } from "../../features/app_context/AppContext";
+import Profile from "./ui/Profile";
+import GlobalState from "../../features/global_state/GlobalState";
 
 export default function Auth() {
     const {user} = useContext(AppContext);
@@ -27,6 +29,7 @@ function AuthForm() {
             .authenticate(login, password)
             .then(res => {
                 if(res == null) {
+                    GlobalState.token = null;
                     alert("У вході відмовлено");
                 }
                 else {
@@ -35,6 +38,7 @@ function AuthForm() {
                         window.localStorage.setItem("user-231", JSON.stringify(res));
                     }
                     // змінюємо стан застосунку
+                    GlobalState.token = res.token;
                     setUser(res);
                 }
             })
@@ -74,76 +78,6 @@ function AuthForm() {
                 action={onAuthClick}
                 buttonType={isFormValid ? ButtonTypes.Red : ButtonTypes.White}
                 />
-        </div>
-    </div>
-    </>;
-}
-
-function Profile() {
-    const {user, setUser} = useContext(AppContext);
-
-    const exitAuth = () => {
-        window.localStorage.removeItem("user-231");
-        setUser(null);
-    };
-
-    const testAuth = () => {
-        // console.log(user!.token);
-        fetch("https://localhost:7015/api/product/123", {
-            headers: {
-                'Authorization': 'Bearer ' + user!.token 
-            }
-        })
-        .then(r => r.json())
-        .then(console.log);
-    };
-
-    return <>
-    <h1 className="display-4 text-center">Кабінет користувача</h1>
-    <div className="row">
-        <div className="col col-6 offset-3 border text-center p-3">
-            <div className="row">
-                <div className="col col-4 offset-4">
-                    <img src={user?.imageUrl} alt={user?.login} className="w-100 rounded-circle" />       
-                </div>
-            </div>
-            <h2 className="display-5">{user?.name}</h2>
-            <div className="row text-start mt-3">
-                <div className="col col-3 offset-2">Ім'я</div>
-                <div className="col col-5">{user?.name}</div>
-                <div className="col col-1"><i className="bi bi-pencil"></i></div>
-            </div>
-            <div className="row text-start mt-3">
-                <div className="col col-3 offset-2">E-mail</div>
-                <div className="col col-5">{user?.email}</div>
-                <div className="col col-1"><i className="bi bi-pencil"></i></div>
-            </div>
-            <div className="row text-start mt-3">
-                <div className="col col-3 offset-2">Адреса</div>
-                <div className="col col-5">{user?.address}</div>
-                <div className="col col-1"><i className="bi bi-pencil"></i></div>
-            </div>
-            
-            <div className="row mt-5">
-                <div className="col col-4 offset-4">
-                    <div className="row">
-                        <SiteButton 
-                            text="Вихід" 
-                            buttonType={ButtonTypes.Red} 
-                            action={exitAuth} /> 
-                    </div>                    
-                </div>          
-
-                <div className="col col-4 ">
-                    <div className="row">
-                        <SiteButton 
-                            text="Тест" 
-                            buttonType={ButtonTypes.White} 
-                            action={testAuth} /> 
-                    </div> 
-                </div>                    
-            </div>
-                   
         </div>
     </div>
     </>;

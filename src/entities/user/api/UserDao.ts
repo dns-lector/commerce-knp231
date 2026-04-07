@@ -4,6 +4,10 @@ import type { UserType } from "../model/UserType";
 
 export default class UserDao {
 
+    static restoreLocal() {
+        
+    }
+
     static authenticate(login:string, password:string) : Promise<UserType|null> {
         return new Promise((resolve, reject) => {
             fetch(`${Config.backendUrl}/User/SignIn/jwt`, {

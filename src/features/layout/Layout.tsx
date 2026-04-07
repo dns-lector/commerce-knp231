@@ -58,8 +58,8 @@ export default function Layout() {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/cart" className="nav-link" title={["Кошик", ...cart.items.map(item => item.product.title + ": " + item.cnt) ].join('\n')} aria-label="Кошик">
-                            <Label title={"Кошик " + cart.items.reduce((n, item) => n + item.cnt, 0)} type={LabelTypes.White} />
+                        <Link to="/cart" className="nav-link" title={["Кошик", ...cart.cartItems.map(item => item.product.title + ": " + item.quantity) ].join('\n')} aria-label="Кошик">
+                            <Label title={"Кошик " + cart.cartItems.reduce((n, item) => n + item.quantity, 0)} type={LabelTypes.White} />
                         </Link>
                     </li>
                 </ul>

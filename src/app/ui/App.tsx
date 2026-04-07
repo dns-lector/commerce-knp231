@@ -8,19 +8,17 @@ import './App.css';
 import type ModalData from '../../features/modal/ModalData';
 import Modal from './Modal/Modal';
 import AppRouter from '../router/AppRouter';
-
-declare global {
-  interface Number {
-        toMoney: () => string;
-  }
-}
-
-Number.prototype.toMoney = function() : string {
-  return this.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-}
+import GlobalState from '../../features/global_state/GlobalState';
+import '../../shared/extensions/NumberExtensions';
+import '../../shared/extensions/StringExtensions';
+import '../../shared/extensions/DateExtensions';
 
 export default function App() {
   const [user, setUser] = useState<UserType|null>(null);
+  useEffect(() => {
+    // GlobalState.token = user?.token ?? null;
+    // console.log("app: GlobalState.token = ", GlobalState.token)
+  }, [user]);
 
   const [cart, setCart] = useState<CartType>(CartDao.restoreSaved());
   useEffect(() => {
@@ -61,10 +59,15 @@ export default function App() {
     if(savedUser) {
       // відновлюємо авторизацію
       try {
-        setUser( JSON.parse(savedUser) );
+        let u:UserType|null = JSON.parse(savedUser);
+        if(u) {
+          GlobalState.token = u.token;
+        }
+        setUser(u);
       }
       catch(err) {
         console.error("User restore error: ", err);
+        GlobalState.token = null;
       }
       
     }

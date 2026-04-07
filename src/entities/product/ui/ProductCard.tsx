@@ -14,16 +14,16 @@ export default function ProductCard({product}:{product: ProductType}) {
 
     const buyClick = () => {
         let newCart = {...cart, price: cart.price + product.price};
-        let item = newCart.items.find(i => i.product.id == product.id);
+        let item = newCart.cartItems.find(i => i.product.id == product.id);
         if(item) {
-            item.cnt += 1;
+            item.quantity += 1;
             item.price += product.price;
         }
         else {
-            newCart.items.push({
+            newCart.cartItems.push({
                 product: product, 
                 price: product.price, 
-                cnt: 1
+                quantity: 1
             });
         }
         setCart(newCart);
@@ -53,7 +53,7 @@ export default function ProductCard({product}:{product: ProductType}) {
             <p className='two-line-ellipsis'>{product.title}</p>
         </Link>
         <div className='product-card-footer'>
-            {cart.items.find(ci => ci.product.id == product.id)
+            {cart.cartItems.find(ci => ci.product.id == product.id)
             ? <SiteButton action={() => navigate("/cart")}>
                 <i className="bi bi-cart-check"></i>&thinsp;
                 <span>У кошику</span>

@@ -16,6 +16,7 @@ export default function AppRouter() {
         <Route index element={<Home />} />
         <Route path='auth' element={<Auth />} />
         <Route path='cart' element={<Cart />} />
+        <Route path='cart/:id' element={<Cart />} />
         <Route path='privacy' element={<Privacy />} />
         <Route path='product/:slug' element={<Product />} />
         <Route path='search/:slug' element={<Search />} />
