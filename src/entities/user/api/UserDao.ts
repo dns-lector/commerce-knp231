@@ -1,5 +1,7 @@
 import Base64 from "../../../shared/base64/Base64";
+import type IRestResponse from "../../../shared/rest/model/IRestResponse";
 import Config from "../../config/Config";
+import type ISignupData from "../model/ISignupData";
 import type { UserType } from "../model/UserType";
 
 export default class UserDao {
@@ -8,7 +10,48 @@ export default class UserDao {
         
     }
 
+    static signUp(signupData:ISignupData) : Promise<IRestResponse>  {
+        return new Promise((resolve, reject) => {
+            fetch(`http://localhost:8080/java231web/user`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },                                     // узгоджуємо з моделлю бекендa
+                body: JSON.stringify({                 //    UserSignupFormModel {
+                    name: signupData.name,             //       private String name;
+                    email: signupData.email,           //       private String email;  
+                    login: signupData.login,           //       private String login;  
+                    password: signupData.password      //       private String password;       
+                }),
+            })
+            .then(r => r.json())
+            .then(j => {
+                resolve(j);
+            })
+            .catch(reject);
+        });
+    }    
+    
+    
     static authenticate(login:string, password:string) : Promise<UserType|null> {
+        return new Promise((resolve, reject) => {
+            fetch(`http://localhost:8080/java231web/user`, {
+                method: "GET",
+                headers: {
+                    "Authorization": "Basic " + Base64.encode(`${login}:${password}`)
+                }
+            })
+            .then(r => r.text())
+            .then(j => {
+                console.log(j);
+                
+                resolve(null);
+            })
+            .catch(reject);
+        });
+    }
+
+    static authenticateAsp(login:string, password:string) : Promise<UserType|null> {
         return new Promise((resolve, reject) => {
             fetch(`${Config.backendUrl}/User/SignIn/jwt`, {
                 method: "GET",

@@ -1,10 +1,19 @@
 import type { HomePageSection } from "../../../features/section_card/types/section";
-import type { SectionType } from "../model/SectionType";
+import type IRestResponse from "../../_rest/model/IRestResponse";
+import type IProductSection from "../model/SectionType";
 
 export default class SectionDao {
     static cacheSections:Array<HomePageSection>|undefined;
 
-    static getSections() {
+    static getSections(page:number=1, pageSize:number=4) {
+        return new Promise<IRestResponse>((resolve, _) => {
+            fetch(`http://localhost:8080/java231web/section?page=${page}&pageSize=${pageSize}`)
+            .then(r => r.json())
+            .then(resolve);
+        });
+    }
+
+    static getSectionsAsp() {
         return new Promise<Array<HomePageSection>>((resolve, _) => {
             fetch("https://localhost:7015/api/sections")
             .then(r => r.json())
@@ -120,7 +129,16 @@ export default class SectionDao {
     }
 
     static getSection(slug:string) {
-        return new Promise<SectionType>((resolve, reject) => {
+        return new Promise<IProductSection>((resolve, reject) => {
+            fetch("http://localhost:8080/java231web/section/" + slug)
+            .then(r => r.json())
+            .then(j => resolve(j.data))
+            .catch(reject);
+        });
+    }
+
+    static getSectionASP(slug:string) {
+        return new Promise<IProductSection>((resolve, reject) => {
             fetch("https://localhost:7015/api/sections/" + slug)
             .then(r => r.json())
             .then(resolve)
@@ -129,7 +147,7 @@ export default class SectionDao {
     }
 
     static getSectionMock(slug:string) {
-        return new Promise<SectionType>((resolve, reject) => {
+        return new Promise<IProductSection>((resolve, reject) => {
             setTimeout(() => {
                 switch(slug) {
                     case 'apple': resolve({
@@ -174,5 +192,5 @@ export default class SectionDao {
             }, 300);
         });
     }
-
+ 
 }

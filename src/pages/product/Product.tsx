@@ -5,6 +5,7 @@ import ProductDao from "../../entities/product/api/ProductDao";
 import { AppContext } from "../../features/app_context/AppContext";
 import type ProductPageType from "../../entities/product/model/ProductPageType";
 import ProductCard from "../../entities/product/ui/ProductCard";
+import type IRestResponse from "../../entities/_rest/model/IRestResponse";
 
 
 
@@ -18,7 +19,9 @@ export default function Product() {
             setBusy(true);
             ProductDao
                 .getProduct(slug)
-                .then(setPageData)
+                .then((r:IRestResponse) => {
+                    setPageData({product: r.data});
+                })
                 .catch(err => {
                     setPageData(null);
                     console.error(err);
@@ -32,28 +35,29 @@ export default function Product() {
     : pageData === null ? <h1>Not Found</h1>
     : <>
     <div className="row"></div>
-
-    <div className="row">
+    {pageData.product.versions.map(pv =>
+    <div className="row mb-3" key={pv.id}>
         <div className="col col-5">
-            <img className="w-100" src={pageData?.product.imageUrl} alt={pageData?.product.title} />
-        </div>    
+            <img className="w-100" src={pv.imageUrl} alt={pageData?.product.title} />
+        </div>
         <div className="col col-7 product-info">
-            <h1>{pageData?.product.title}</h1>
+            <h1>{pageData?.product.title} {pv.titleAddon}</h1>            
             <div>
                 <div className='product-rating'>★★★★★ ({pageData.product.rating})</div>
-                {pageData.product.stock === 0
+                {pv.stock === 0
                 ? <div className="product-unavailable">Передзамовлення</div>
-                : pageData.product.stock && pageData.product.stock > 0 && pageData.product.stock < 5
+                : pv.stock && pv.stock > 0 && pv.stock < 5
                     ? <div className="product-low-stock">Залишилось мало</div>
                     : <div className="product-available">У наявності</div>
                 }
             </div>
-            <div className="product-old-price">{pageData.product.price + (pageData?.product.discount ?? 0)}</div>
-            <div className="product-new-price">{pageData.product.price}</div>
+            <div className="product-old-price">{pv.price + (pageData?.product.discount ?? 0)}</div>
+            <div className="product-new-price">{pv.price}</div>
         </div>    
-    </div>   
+    </div>)}
+
     <br/>
-    <Recommended pageData={pageData} />
+    {/* <Recommended pageData={pageData} /> */}
     </>;
 }
 
@@ -79,7 +83,7 @@ function Recommended({pageData}:{pageData:ProductPageType}) {
 
         <div className="recommended-container" ref={scrollRightRef}>
             <div className="recommended-row">
-                {pageData?.recommended.map(product => <ProductCard product={product} key={product.id} />)}
+                {pageData?.recommended?.map(product => <ProductCard product={product} key={product.id} />)}
             </div>
         </div>
 
@@ -92,3 +96,10 @@ function Recommended({pageData}:{pageData:ProductPageType}) {
     </div>
      ;
 }
+/*
+Д.З. Змінити структуру сторінки product/{slug}:
+якщо у товару є декілька версій, то залишити спільну для всіх назву
+один раз заголовком сторінки, а різні версії відображати тільки з
+додатками (Addon);
+якщо версія одна, то лишити структуру без змін
+*/

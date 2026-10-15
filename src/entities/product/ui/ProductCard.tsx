@@ -1,5 +1,5 @@
 import './ProductCard.css';
-import type { ProductType } from "../model/ProductType";
+import type { ProductType } from "../model/IProduct";
 import Label from '../../../features/label/Label';
 import LabelTypes from '../../../features/label/types/LabelTypes';
 import SiteButton from '../../../features/buttons/SiteButton';
